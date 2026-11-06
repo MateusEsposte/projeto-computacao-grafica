@@ -1,4 +1,4 @@
-# Install script for directory: /home/manomat/Downloads/computacao grafica/RayMarching_Luz
+# Install script for directory: /home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

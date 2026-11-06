@@ -1,7 +1,7 @@
 CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o: \
- /home/manomat/Downloads/computacao\ grafica/RayMarching_Luz/stb_image/stb_image.cpp \
+ /home/manomat/Downloads/computacao\ grafica/1\ -\ RayMarching_Luz/stb_image/stb_image.cpp \
  /usr/include/stdc-predef.h \
- /home/manomat/Downloads/computacao\ grafica/RayMarching_Luz/stb_image/stb_image.h \
+ /home/manomat/Downloads/computacao\ grafica/1\ -\ RayMarching_Luz/stb_image/stb_image.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \

@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/manomat/Downloads/computacao grafica/RayMarching_Luz"
+CMAKE_SOURCE_DIR = "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build"
+CMAKE_BINARY_DIR = "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/build"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Math3.dir/depend.make
@@ -70,46 +70,46 @@ include CMakeFiles/Math3.dir/progress.make
 include CMakeFiles/Math3.dir/flags.make
 
 CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o: CMakeFiles/Math3.dir/flags.make
-CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o: /home/manomat/Downloads/computacao\ grafica/RayMarching_Luz/stb_image/stb_image.cpp
+CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o: /home/manomat/Downloads/computacao\ grafica/1\ -\ RayMarching_Luz/stb_image/stb_image.cpp
 CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o: CMakeFiles/Math3.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o -MF CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o.d -o CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o -c "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/stb_image/stb_image.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o -MF CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o.d -o CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o -c "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/stb_image/stb_image.cpp"
 
 CMakeFiles/Math3.dir/stb_image/stb_image.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Math3.dir/stb_image/stb_image.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/stb_image/stb_image.cpp" > CMakeFiles/Math3.dir/stb_image/stb_image.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/stb_image/stb_image.cpp" > CMakeFiles/Math3.dir/stb_image/stb_image.cpp.i
 
 CMakeFiles/Math3.dir/stb_image/stb_image.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Math3.dir/stb_image/stb_image.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/stb_image/stb_image.cpp" -o CMakeFiles/Math3.dir/stb_image/stb_image.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/stb_image/stb_image.cpp" -o CMakeFiles/Math3.dir/stb_image/stb_image.cpp.s
 
 CMakeFiles/Math3.dir/glad.c.o: CMakeFiles/Math3.dir/flags.make
-CMakeFiles/Math3.dir/glad.c.o: /home/manomat/Downloads/computacao\ grafica/RayMarching_Luz/glad.c
+CMakeFiles/Math3.dir/glad.c.o: /home/manomat/Downloads/computacao\ grafica/1\ -\ RayMarching_Luz/glad.c
 CMakeFiles/Math3.dir/glad.c.o: CMakeFiles/Math3.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Math3.dir/glad.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Math3.dir/glad.c.o -MF CMakeFiles/Math3.dir/glad.c.o.d -o CMakeFiles/Math3.dir/glad.c.o -c "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/glad.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Math3.dir/glad.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Math3.dir/glad.c.o -MF CMakeFiles/Math3.dir/glad.c.o.d -o CMakeFiles/Math3.dir/glad.c.o -c "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/glad.c"
 
 CMakeFiles/Math3.dir/glad.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Math3.dir/glad.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/glad.c" > CMakeFiles/Math3.dir/glad.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/glad.c" > CMakeFiles/Math3.dir/glad.c.i
 
 CMakeFiles/Math3.dir/glad.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Math3.dir/glad.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/glad.c" -o CMakeFiles/Math3.dir/glad.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/glad.c" -o CMakeFiles/Math3.dir/glad.c.s
 
 CMakeFiles/Math3.dir/Math3.cpp.o: CMakeFiles/Math3.dir/flags.make
-CMakeFiles/Math3.dir/Math3.cpp.o: /home/manomat/Downloads/computacao\ grafica/RayMarching_Luz/Math3.cpp
+CMakeFiles/Math3.dir/Math3.cpp.o: /home/manomat/Downloads/computacao\ grafica/1\ -\ RayMarching_Luz/Math3.cpp
 CMakeFiles/Math3.dir/Math3.cpp.o: CMakeFiles/Math3.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Math3.dir/Math3.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Math3.dir/Math3.cpp.o -MF CMakeFiles/Math3.dir/Math3.cpp.o.d -o CMakeFiles/Math3.dir/Math3.cpp.o -c "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/Math3.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Math3.dir/Math3.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Math3.dir/Math3.cpp.o -MF CMakeFiles/Math3.dir/Math3.cpp.o.d -o CMakeFiles/Math3.dir/Math3.cpp.o -c "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/Math3.cpp"
 
 CMakeFiles/Math3.dir/Math3.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Math3.dir/Math3.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/Math3.cpp" > CMakeFiles/Math3.dir/Math3.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/Math3.cpp" > CMakeFiles/Math3.dir/Math3.cpp.i
 
 CMakeFiles/Math3.dir/Math3.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Math3.dir/Math3.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/Math3.cpp" -o CMakeFiles/Math3.dir/Math3.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/Math3.cpp" -o CMakeFiles/Math3.dir/Math3.cpp.s
 
 # Object files for target Math3
 Math3_OBJECTS = \
@@ -125,7 +125,7 @@ Math3: CMakeFiles/Math3.dir/glad.c.o
 Math3: CMakeFiles/Math3.dir/Math3.cpp.o
 Math3: CMakeFiles/Math3.dir/build.make
 Math3: CMakeFiles/Math3.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Math3"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Math3"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Math3.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -137,6 +137,6 @@ CMakeFiles/Math3.dir/clean:
 .PHONY : CMakeFiles/Math3.dir/clean
 
 CMakeFiles/Math3.dir/depend:
-	cd "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/manomat/Downloads/computacao grafica/RayMarching_Luz" "/home/manomat/Downloads/computacao grafica/RayMarching_Luz" "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build" "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build" "/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build/CMakeFiles/Math3.dir/DependInfo.cmake" "--color=$(COLOR)"
+	cd "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz" "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz" "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/build" "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/build" "/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/build/CMakeFiles/Math3.dir/DependInfo.cmake" "--color=$(COLOR)"
 .PHONY : CMakeFiles/Math3.dir/depend
 

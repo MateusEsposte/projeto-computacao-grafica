@@ -10,6 +10,8 @@
 #include <unistd.h>
 #include <filesystem>
 
+#include <vector>
+
 double lastTime,lt,fps;
 int nbFrames = 0;
 char title_string[50];
@@ -81,6 +83,12 @@ int main()
         return -1;
     }
 
+    std::cout << "OpenGL: "
+        << glGetString(GL_VERSION) << std::endl;
+
+    std::cout << "GLSL: "
+        << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+
     std::string parentPath = path.string();
 
     const std::string vertexShader = "/Shaders/VertexShader.vs";
@@ -123,10 +131,26 @@ int main()
 
      const std::string cString = parentPath+ "/Shaders/common.incl";
     const char * commonPath = cString.c_str();
-    Shader Imageprogram(commonPath,vertexShaderPath,fragmentShaderPath);
+
+    const std::string geometryPath =
+        parentPath + "/Shaders/Projeto/Geometry.incl";
+
+    const std::string carsPath =
+        parentPath + "/Shaders/Projeto/Cars.incl";
+
+    const std::string scenePath =
+        parentPath + "/Shaders/Projeto/Scene.frag";
+
+    std::vector<std::string> projectFragments = {
+        geometryPath,
+        carsPath,
+        scenePath
+    };
+
+    Shader Imageprogram(commonPath, vertexShaderPath, projectFragments);
     //Shader BufferAprogram(commonPath,vertexShaderPath,fragmentShaderAPath);
-  //  Shader BufferBprogram(commonPath,vertexShaderPath,fragmentShaderBPath);
-   // Shader BufferCprogram(commonPath,vertexShaderPath,fragmentShaderCPath);
+    //Shader BufferBprogram(commonPath,vertexShaderPath,fragmentShaderBPath);
+    //Shader BufferCprogram(commonPath,vertexShaderPath,fragmentShaderCPath);
     //Shader BufferDprogram(commonPath,vertexShaderPath,fragmentShaderDPath);
     const char * commonPath1 = cString.c_str();
     Shader TVShaderprogram(commonPath1,TVvertexShaderPath,TVShaderPath);

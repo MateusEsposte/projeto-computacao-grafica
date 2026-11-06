@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <vector>
 
 class Shader
 {
@@ -14,70 +15,102 @@ public:
     unsigned int ID;
     // constructor generates the shader on the fly
     // ------------------------------------------------------------------------
-    Shader(const char* commonPath,const char* vertexPath, const char* fragmentPath)
+
+    Shader(const char* commonPath, const char* vertexPath, const char* fragmentPath)
+        : Shader(commonPath, vertexPath, std::vector<std::string>{fragmentPath})
     {
-        // 1. retrieve the vertex/fragment source code from filePath
+    }
+
+    // Novo construtor: recebe vários arquivos de fragment shader.
+    Shader(const char* commonPath, const char* vertexPath,
+           const std::vector<std::string>& fragmentPaths)
+    {
         std::string commonCode;
         std::string vertexCode;
         std::string fragmentCode;
+
         std::ifstream vShaderFile;
-        std::ifstream fShaderFile;
         std::ifstream cShaderFile;
-        // ensure ifstream objects can throw exceptions:
-        vShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-        fShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-    
-        try 
+
+        vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        cShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+        try
         {
-            // open files
+            // Abre os arquivos comuns.
             vShaderFile.open(vertexPath);
-            fShaderFile.open(fragmentPath);
             cShaderFile.open(commonPath);
-            std::stringstream vShaderStream, fShaderStream,cShaderStream;
 
-            // read file's buffer contents into streams
+            std::stringstream vShaderStream;
+            std::stringstream cShaderStream;
+
             vShaderStream << vShaderFile.rdbuf();
-            fShaderStream << fShaderFile.rdbuf();
             cShaderStream << cShaderFile.rdbuf();
-            
-            // close file handlers
+
             vShaderFile.close();
-            fShaderFile.close();
             cShaderFile.close();
-            // convert stream into string
-            vertexCode   = vShaderStream.str();
-            fragmentCode = cShaderStream.str()+fShaderStream.str();
 
+            vertexCode = vShaderStream.str();
+            commonCode = cShaderStream.str();
+
+            // Lê e concatena os módulos na ordem recebida.
+            fragmentCode = commonCode + "\n";
+
+            for (const std::string& path : fragmentPaths)
+            {
+                std::ifstream fragmentFile(path);
+
+                fragmentFile.exceptions(
+                    std::ifstream::failbit | std::ifstream::badbit
+                );
+
+                std::stringstream fragmentStream;
+
+                fragmentStream << fragmentFile.rdbuf();
+
+                fragmentFile.close();
+
+                fragmentCode += fragmentStream.str();
+                fragmentCode += "\n";
+            }
         }
-        catch (std::ifstream::failure& e)
+        catch (const std::ifstream::failure& e)
         {
-            std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: " << e.what() << std::endl;
+            std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: "
+                      << e.what() << std::endl;
+            return;
         }
-        const char* vShaderCode = vertexCode.c_str();
-        const char * fShaderCode = fragmentCode.c_str();
 
-        // 2. compile shaders
+        const char* vShaderCode = vertexCode.c_str();
+        const char* fShaderCode = fragmentCode.c_str();
+
+        // Compilação dos shaders.
         unsigned int vertex, fragment;
-        // vertex shader
+
         vertex = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vertex, 1, &vShaderCode, NULL);
         glCompileShader(vertex);
         checkCompileErrors(vertex, "VERTEX");
-        // fragment Shader
+
         fragment = glCreateShader(GL_FRAGMENT_SHADER);
         glShaderSource(fragment, 1, &fShaderCode, NULL);
         glCompileShader(fragment);
         checkCompileErrors(fragment, "FRAGMENT");
-        // shader Program
+
+        // Linkagem do programa.
         ID = glCreateProgram();
+
         glAttachShader(ID, vertex);
         glAttachShader(ID, fragment);
+
         glLinkProgram(ID);
         checkCompileErrors(ID, "PROGRAM");
-        // delete the shaders as they're linked into our program now and no longer necessary
+
         glDeleteShader(vertex);
         glDeleteShader(fragment);
     }
+
+    
     // activate the shader
     // ------------------------------------------------------------------------
     void use() 

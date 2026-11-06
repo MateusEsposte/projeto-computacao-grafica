@@ -1,1 +1,1 @@
-/usr/bin/c++ -I"/home/manomat/Downloads/computacao grafica/RayMarching_Luz/includes" CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o CMakeFiles/Math3.dir/glad.c.o CMakeFiles/Math3.dir/Math3.cpp.o -o Math3  -lGL -ldl -lglfw 
+/usr/bin/c++ CMakeFiles/Math3.dir/stb_image/stb_image.cpp.o CMakeFiles/Math3.dir/glad.c.o CMakeFiles/Math3.dir/Math3.cpp.o -o Math3  -lGL -ldl -lglfw 

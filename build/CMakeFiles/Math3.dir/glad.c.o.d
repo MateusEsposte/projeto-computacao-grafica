@@ -1,5 +1,5 @@
 CMakeFiles/Math3.dir/glad.c.o: \
- /home/manomat/Downloads/computacao\ grafica/RayMarching_Luz/glad.c \
+ /home/manomat/Downloads/computacao\ grafica/1\ -\ RayMarching_Luz/glad.c \
  /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -52,8 +52,8 @@ CMakeFiles/Math3.dir/glad.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
  /usr/include/strings.h \
- /home/manomat/Downloads/computacao\ grafica/RayMarching_Luz/includes/glad/glad.h \
- /home/manomat/Downloads/computacao\ grafica/RayMarching_Luz/includes/KHR/khrplatform.h \
+ /home/manomat/Downloads/computacao\ grafica/1\ -\ RayMarching_Luz/includes/glad/glad.h \
+ /home/manomat/Downloads/computacao\ grafica/1\ -\ RayMarching_Luz/includes/KHR/khrplatform.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \

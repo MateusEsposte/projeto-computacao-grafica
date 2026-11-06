@@ -5,13 +5,13 @@
 # compile CXX with /usr/bin/c++
 C_DEFINES = 
 
-C_INCLUDES = 
+C_INCLUDES = -I"/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/includes"
 
-C_FLAGS = -I"/home/manomat/Downloads/computacao grafica/RayMarching_Luz/includes"
+C_FLAGS = 
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I"/home/manomat/Downloads/computacao grafica/1 - RayMarching_Luz/includes"
 
-CXX_FLAGS = -I"/home/manomat/Downloads/computacao grafica/RayMarching_Luz/includes" -std=gnu++17
+CXX_FLAGS = -std=gnu++17
 
