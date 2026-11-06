@@ -1,0 +1,3 @@
+/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build/CMakeFiles/Math3.dir
+/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build/CMakeFiles/edit_cache.dir
+/home/manomat/Downloads/computacao grafica/RayMarching_Luz/build/CMakeFiles/rebuild_cache.dir
