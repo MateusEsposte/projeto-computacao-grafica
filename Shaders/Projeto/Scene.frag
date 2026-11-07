@@ -25,17 +25,18 @@ Surface csgObject(vec3 p){
 
 
 Surface getDist(vec3 p){
-    Surface Plane;
+    Surface Car = carModel(
+        p - vec3(0.0, 0.0, -1.3)
+    );
 
-    Plane.d = planeDist(p, vec3 (0.0, 1.0, 0.0), 0.0);
-    Plane.color = vec3(0.75); 
-    Plane.Ka = 0.2; 
-    Plane.Kd = 0.4;
-    Plane.Ks = 0.4;
+    Surface Track = trackModel(p);
+    Surface Markings = roadMarkingsModel(p);
+    Surface Environment = environmentModel(p);
 
-    Surface Car;
-    Car = carModel(p);
-    d = unionS(Car, d);
+    Surface d = unionS(Car, Track);
+    d = unionS(d, Markings);
+    d = unionS(d, Environment);
+    d = unionS(d, streetLampsModel(p));
 
     return d;
 }
@@ -76,36 +77,39 @@ vec3 estimateNormal(vec3 p){
 }
 
 
-vec3 getLight(vec3 p, vec3 CamPos, Surface s) {
-    vec3 lightPos = vec3(10.0, 10.0, -10.0);
-    float dl = length(lightPos);
-    
-    vec3 lightColor = vec3 (1.0);
-    float w = 2.0 * PI * iTime * 0.15;
-    
-    lightPos.xz = dl * vec2(cos(w), sin(w)) * 0.5;
 
-    vec3 ld = lightPos - p;
-    float fat = 1 / length(ld);
-    vec3 l = fat * ld;
+vec3 getLight(vec3 p, vec3 CamPos, Surface s)
+{
     vec3 n = estimateNormal(p);
-    float dif = dot(n, l);
+    vec3 viewDir = normalize(CamPos - p);
 
-    vec3 col= s.color*s.Ka;
+    // Iluminação ambiente
+    vec3 col = s.color * s.Ka;
 
-    col += s.color *s.Kd * dif * fat * 20.0;
-    vec3 eye = normalize(p - CamPos);
-    vec3 R = normalize(reflect(n, l));
-    float phi = dot(eye, R);
-    
-    if(phi > 0.0){
-        col += s.Ks * lightColor * pow(phi, 5.0);
-    }
+    // Iluminação dos postes
+    vec3 lampColor = vec3(1.0, 0.72, 0.38);
 
-    Surface sd = rayMarching(p + 200.0 * n * SURF_DIST, l);
-    if(sd.d < length(lightPos - p)){
-        col *= .25;
-    }
+    // Iluminação dos postes
+    col += pointLight(p, viewDir, n, s,
+        vec3(-12.0, 4.85, -4.0), lampColor, 15.0);
+
+    col += pointLight(p, viewDir, n, s,
+        vec3(0.0, 4.85, 4.0), lampColor, 15.0);
+
+    col += pointLight(p, viewDir, n, s,
+        vec3(12.0, 4.85, -4.0), lampColor, 15.0);
+
+    // Iluminação dos faróis
+    vec3 headlightColor = vec3(1.0, 0.88, 0.68);
+    vec3 headlightDir = vec3(1.0, 0.0, 0.0);
+
+    col += spotLight(p, viewDir, n, s,
+        vec3(1.43, 0.43, -1.73),
+        headlightDir, headlightColor, 15.0);
+
+    col += spotLight(p, viewDir, n, s,
+        vec3(1.43, 0.43, -0.87),
+        headlightDir, headlightColor, 15.0);
 
     return col;
 }
@@ -124,7 +128,6 @@ void main(){
 
 
     vec3 rd = normalize(vec3(p, 1.2));
-    vec3 col = mix(vec3 (.01, 0.1, 0.1), COLOR_BACKGROUND, -p.y * 0.2);
     vec2 mo = iMouse.xy / iResolution.xy;
 
     float am = mix(0.0, 90.0, mo.x * iMouse.z);
@@ -133,12 +136,15 @@ void main(){
     mat4 Mry = rotY(am);
     mat4 Mrx = rotX(bm);
     mat4 M = Mrx * Mry;
-    vec3 Cam = vec3 (0.0, 3.0, -4.0);
+   
+    vec3 Cam = vec3 (-8.0, 4.0, -6.0);
     Cam = opTransf(Cam, M);
 
-    vec3 Target = vec3 (0.0, 1, 10);
+    vec3 Target = vec3 (-4.0, 1, -2.0);
     mat3 Mc = SetCamera(Target, Cam);
     rd = Mc * rd;
+
+    vec3 col = skyColor(rd);
 
     Surface s = rayMarching(Cam, rd);
     

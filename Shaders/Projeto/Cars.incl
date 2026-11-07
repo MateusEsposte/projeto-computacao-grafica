@@ -79,11 +79,40 @@ Surface carWheels(vec3 p){
 }
 
 
+Surface carHeadlights(vec3 p){
+    Surface headlights;
+
+    float left = boxRoundDist(
+        p - vec3(1.43, 0.43, -0.43),
+        vec3(0.10, 0.09, 0.13),
+        0.05
+    );
+
+    float right = boxRoundDist(
+        p - vec3(1.43, 0.43, 0.43),
+        vec3(0.10, 0.09, 0.13),
+        0.05
+    );
+
+    headlights.d = min(left, right);
+
+    // Superfície amarelada dos faróis
+    headlights.color = vec3(1.0, 0.85, 0.55);
+    headlights.Ka = 1.0;
+    headlights.Kd = 0.1;
+    headlights.Ks = 0.2;
+
+    return headlights;
+}
+
+
+
 Surface carModel(vec3 p){
     Surface car = carBody(p);
 
     car = unionS(car, carCabin(p));
     car = unionS(car, carWheels(p));
+    car = unionS(car, carHeadlights(p));
 
     return car;
 }

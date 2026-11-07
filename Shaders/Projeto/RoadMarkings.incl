@@ -1,0 +1,28 @@
+// Distancia das linhas laterais em relacao
+// ao centro da pista
+float roadEdgeDist(vec3 p)
+{
+    float lateralD = abs(
+        (trackDistance(p) + 3.0) - 2.7
+    ) - 0.06;
+
+    float verticalD = abs(p.y - 0.006) - 0.006;
+
+    return max(lateralD, verticalD);
+}
+
+
+// Modelo das marcacoes laterais
+Surface roadMarkingsModel(vec3 p)
+{
+    Surface markings;
+
+    markings.d = roadEdgeDist(p);
+
+    markings.color = vec3(0.9, 0.9, 0.9);
+    markings.Ka = 0.3;
+    markings.Kd = 0.5;
+    markings.Ks = 0.2;
+
+    return markings;
+}

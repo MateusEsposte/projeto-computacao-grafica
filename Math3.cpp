@@ -129,7 +129,7 @@ int main()
 
 
 
-     const std::string cString = parentPath+ "/Shaders/common.incl";
+    const std::string cString = parentPath+ "/Shaders/common.incl";
     const char * commonPath = cString.c_str();
 
     const std::string geometryPath =
@@ -138,12 +138,36 @@ int main()
     const std::string carsPath =
         parentPath + "/Shaders/Projeto/Cars.incl";
 
+    const std::string trackPath =
+        parentPath + "/Shaders/Projeto/Track.incl";
+
+    const std::string roadMarkingsPath =
+        parentPath + "/Shaders/Projeto/RoadMarkings.incl";
+
     const std::string scenePath =
         parentPath + "/Shaders/Projeto/Scene.frag";
+
+    const std::string lightingPath =
+        parentPath + "/Shaders/Projeto/Lighting.incl";
+
+    const std::string skyPath =
+        parentPath + "/Shaders/Projeto/Sky.incl";
+
+    const std::string environmentPath =
+        parentPath + "/Shaders/Projeto/Environment.incl";
+
+    const std::string streetLampsPath =
+        parentPath + "/Shaders/Projeto/StreetLamps.incl";
 
     std::vector<std::string> projectFragments = {
         geometryPath,
         carsPath,
+        trackPath,
+        roadMarkingsPath,
+        skyPath,
+        environmentPath,
+        lightingPath,
+        streetLampsPath,
         scenePath
     };
 

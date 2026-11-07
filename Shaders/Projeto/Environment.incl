@@ -1,0 +1,165 @@
+// Retorna:
+// x = distancia quadrada ate o segmento
+// y = distancia lateral com sinal
+vec2 terrainSegmentData(vec3 p, vec2 a, vec2 b)
+{
+    vec2 q = p.xz - a;
+    vec2 ba = b - a;
+
+    float h = clamp(
+        dot(q, ba) / dot(ba, ba),
+        0.0,
+        1.0
+    );
+
+    vec2 closest = a + ba * h;
+    vec2 delta = p.xz - closest;
+
+    float side = ba.x * delta.y - ba.y * delta.x;
+
+    return vec2(dot(delta, delta), sign(side) * length(delta));
+}
+
+
+// Determina o lado mais proximo do percurso
+float terrainSide(vec3 p)
+{
+    vec2 best = terrainSegmentData(
+        p, vec2(-12.0, 0.0), vec2(8.0, 0.0)
+    );
+
+    vec2 candidate;
+
+    candidate = terrainSegmentData(
+        p, vec2(8.0, 0.0), vec2(18.0, 0.5)
+    );
+    if(candidate.x < best.x) best = candidate;
+
+    candidate = terrainSegmentData(
+        p, vec2(18.0, 0.5), vec2(28.0, 2.0)
+    );
+    if(candidate.x < best.x) best = candidate;
+
+    candidate = terrainSegmentData(
+        p, vec2(28.0, 2.0), vec2(38.0, 2.0)
+    );
+    if(candidate.x < best.x) best = candidate;
+
+    candidate = terrainSegmentData(
+        p, vec2(38.0, 2.0), vec2(48.0, 0.5)
+    );
+    if(candidate.x < best.x) best = candidate;
+
+    candidate = terrainSegmentData(
+        p, vec2(48.0, 0.5), vec2(58.0, -1.5)
+    );
+    if(candidate.x < best.x) best = candidate;
+
+    candidate = terrainSegmentData(
+        p, vec2(58.0, -1.5), vec2(72.0, -1.5)
+    );
+    if(candidate.x < best.x) best = candidate;
+
+    return best.y;
+}
+
+
+// Hash pseudoaleatorio
+float terrainHash(vec2 p)
+{
+    return fract(
+        sin(dot(p, vec2(127.1, 311.7))) * 43758.5453
+    );
+}
+
+
+// Ruido de valor bidimensional
+float terrainNoise(vec2 p)
+{
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+
+    // Interpolacao suave
+    f = f * f * (3.0 - 2.0 * f);
+
+    float a = terrainHash(i);
+    float b = terrainHash(i + vec2(1.0, 0.0));
+    float c = terrainHash(i + vec2(0.0, 1.0));
+    float d = terrainHash(i + vec2(1.0, 1.0));
+
+    float x1 = mix(a, b, f.x);
+    float x2 = mix(c, d, f.x);
+
+    return mix(x1, x2, f.y) * 2.0 - 1.0;
+}
+
+
+float terrainHeight(vec3 p)
+{
+    float side = terrainSide(p);
+
+    // Distancia alem da margem de seguranca
+    float outsideDistance = max(abs(side) - 5.0, 0.0);
+
+    // Encosta esquerda
+    float height;
+
+    if(side > 0.0)
+    {
+        height = 0.65 * outsideDistance;
+    }
+    // Vale direito
+    else
+    {
+        height = -0.35 * outsideDistance;
+    }
+
+    // Intensidade gradual do ruido
+    float noiseFade = smoothstep(
+        0.0,
+        6.0,
+        outsideDistance
+    );
+
+    // Duas escalas de irregularidade
+    float largeNoise = terrainNoise(p.xz * 0.18);
+    float smallNoise = terrainNoise(p.xz * 0.36);
+
+    float irregularity =
+        largeNoise * 0.12 +
+        smallNoise * 0.04;
+
+    height += irregularity * noiseFade;
+
+    return height;
+}
+
+// Distancia ate o terreno
+float terrainDistance(vec3 p)
+{
+    float height = terrainHeight(p);
+
+    float terrainD = p.y - height;
+
+    // Impede que o terreno invada a area da pista
+    float trackBoundary = -trackDistance(p);
+
+    return max(terrainD, trackBoundary);
+}
+
+
+// Modelo completo do ambiente
+Surface environmentModel(vec3 p)
+{
+    Surface terrain;
+
+    terrain.d = terrainDistance(p);
+
+    terrain.color = vec3(0.16, 0.15, 0.13);
+
+    terrain.Ka = 0.25;
+    terrain.Kd = 0.55;
+    terrain.Ks = 0.1;
+
+    return terrain;
+}

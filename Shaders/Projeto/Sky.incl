@@ -1,0 +1,61 @@
+// Geracao de numeros pseudoaleatorios
+float skyHash(vec2 p)
+{
+    return fract(
+        sin(dot(p, vec2(127.1, 311.7))) * 43758.5453
+    );
+}
+
+
+// Cor do ceu e distribuicao das estrelas
+vec3 skyColor(vec3 rd)
+{
+    // Coordenadas esfericas da direcao do raio
+    vec2 uv = vec2(
+        atan(rd.z, rd.x),
+        asin(clamp(rd.y, -1.0, 1.0))
+    );
+
+    // Gradiente vertical
+    float horizon = max(rd.y, 0.0);
+
+    vec3 horizonColor = vec3(0.008, 0.012, 0.035);
+    vec3 zenithColor = vec3(0.001, 0.002, 0.012);
+
+    vec3 col = mix(
+        horizonColor,
+        zenithColor,
+        pow(horizon, 0.5)
+    );
+
+    // Distribuicao procedural das estrelas
+    vec2 grid = uv * vec2(180.0, 90.0);
+
+    vec2 cell = floor(grid);
+    vec2 local = fract(grid);
+
+    float randomValue = skyHash(cell);
+
+    vec2 starPosition = vec2(
+        skyHash(cell + 1.0),
+        skyHash(cell + 2.0)
+    );
+
+    float starDist = length(local - starPosition);
+
+    float star = 1.0 - smoothstep(
+        0.015,
+        0.045,
+        starDist
+    );
+
+    // Apenas uma pequena parcela das celulas tera estrelas
+    star *= step(0.985, randomValue);
+
+    // Intensidade variavel
+    float brightness = 0.5 + skyHash(cell + 3.0) * 0.8;
+
+    col += vec3(0.8, 0.85, 1.0) * star * brightness;
+
+    return col;
+}

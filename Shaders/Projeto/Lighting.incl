@@ -1,0 +1,77 @@
+
+vec3 pointLight(
+    vec3 p,
+    vec3 viewDir,
+    vec3 normal,
+    Surface s,
+    vec3 lightPos,
+    vec3 lightColor,
+    float intensity
+)
+{
+    vec3 ld = lightPos - p;
+    float distanceToLight = length(ld);
+    vec3 l = normalize(ld);
+
+    float attenuation = 1.0 / (
+        1.0 + 0.2 * distanceToLight
+        + 0.1 * distanceToLight * distanceToLight
+    );
+
+    float dif = max(dot(normal, l), 0.0);
+
+    vec3 result = s.color * s.Kd * lightColor
+                * dif * attenuation * intensity;
+
+    vec3 reflectDir = reflect(-l, normal);
+    float spec = max(dot(viewDir, reflectDir), 0.0);
+
+    result += s.Ks * lightColor
+            * pow(spec, 5.0) * attenuation * intensity;
+
+    return result;
+}
+
+
+vec3 spotLight(
+    vec3 p,
+    vec3 viewDir,
+    vec3 normal,
+    Surface s,
+    vec3 lightPos,
+    vec3 lightDir,
+    vec3 lightColor,
+    float intensity
+)
+{
+    vec3 ld = p - lightPos;
+    float distanceToLight = length(ld);
+
+    vec3 l = -normalize(ld);
+
+    // Ângulo entre o feixe e o ponto iluminado
+    float cone = dot(normalize(ld), normalize(lightDir));
+
+    // Abertura e suavização do feixe
+    float spot = smoothstep(0.82, 0.95, cone);
+
+    // Atenuação pela distância
+    float attenuation = 1.0 / (
+        1.0 + 0.08 * distanceToLight
+        + 0.015 * distanceToLight * distanceToLight
+    );
+
+    float dif = max(dot(normal, l), 0.0);
+
+    vec3 result = s.color * s.Kd * lightColor
+                * dif * attenuation * spot * intensity;
+
+    vec3 reflectDir = reflect(-l, normal);
+    float spec = max(dot(viewDir, reflectDir), 0.0);
+
+    result += s.Ks * lightColor
+            * pow(spec, 5.0)
+            * attenuation * spot * intensity;
+
+    return result;
+}

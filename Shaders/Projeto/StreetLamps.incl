@@ -1,0 +1,91 @@
+
+Surface lampPart(float d, vec3 color, float Ka, float Kd, float Ks)
+{
+    Surface s;
+    s.d = d;
+    s.color = color;
+    s.Ka = Ka;
+    s.Kd = Kd;
+    s.Ks = Ks;
+    return s;
+}
+
+// Constrói um poste individual.
+// side = -1: lado negativo de Z
+// side =  1: lado positivo de Z
+Surface singleStreetLamp(vec3 p, float x, float side)
+{
+    Surface result;
+
+    // Base de concreto
+    result = lampPart(
+        boxRoundDist(
+            p - vec3(x, 0.12, side * 4.8),
+            vec3(0.22, 0.12, 0.22),
+            0.04
+        ),
+        vec3(0.20, 0.20, 0.19),
+        0.15, 0.65, 0.1
+    );
+
+    // Haste vertical
+    Surface pole = lampPart(
+        cylinderDist(
+            p,
+            vec3(x, 0.2, side * 4.8),
+            vec3(x, 5.0, side * 4.8),
+            0.075
+        ),
+        vec3(0.16, 0.17, 0.18),
+        0.12, 0.7, 0.25
+    );
+
+    result = unionS(result, pole);
+
+    // Braço horizontal direcionado para a pista
+    Surface arm = lampPart(
+        cylinderDist(
+            p,
+            vec3(x, 4.85, side * 4.8),
+            vec3(x, 4.85, side * 4.0),
+            0.055
+        ),
+        vec3(0.16, 0.17, 0.18),
+        0.12, 0.7, 0.25
+    );
+
+    result = unionS(result, arm);
+
+    // Corpo da luminária
+    Surface head = lampPart(
+        boxRoundDist(
+            p - vec3(x, 4.85, side * 4.0),
+            vec3(0.32, 0.09, 0.20),
+            0.07
+        ),
+        vec3(0.85, 0.68, 0.38),
+        0.45, 0.5, 0.15
+    );
+
+    result = unionS(result, head);
+
+    return result;
+}
+
+// Conjunto de três postes
+Surface streetLampsModel(vec3 p)
+{
+    Surface result = singleStreetLamp(p, -12, -1.0);
+
+    result = unionS(
+        result,
+        singleStreetLamp(p, 0.0, 1.0)
+    );
+
+    result = unionS(
+        result,
+        singleStreetLamp(p, 12.0, -1.0)
+    );
+
+    return result;
+}

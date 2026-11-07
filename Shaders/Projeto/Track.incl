@@ -1,0 +1,70 @@
+// Distância entre um ponto e um segmento no plano XZ
+float trackSegmentDist(vec3 p, vec2 a, vec2 b)
+{
+    vec2 q = p.xz - a;
+    vec2 ba = b - a;
+
+    float h = clamp(
+        dot(q, ba) / dot(ba, ba),
+        0.0,
+        1.0
+    );
+
+    return length(q - ba * h) - 3.0;
+}
+
+
+// Define o percurso da pista
+float trackDistance(vec3 p)
+{
+    float d = trackSegmentDist(
+        p, vec2(-12.0, 0.0), vec2(8.0, 0.0)
+    );
+
+    d = min(d, trackSegmentDist(
+        p, vec2(8.0, 0.0), vec2(18.0, 0.5)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(18.0, 0.5), vec2(28.0, 2.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(28.0, 2.0), vec2(38.0, 2.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(38.0, 2.0), vec2(48.0, 0.5)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(48.0, 0.5), vec2(58.0, -1.5)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(58.0, -1.5), vec2(72.0, -1.5)
+    ));
+
+    return d;
+}
+
+
+// Modelo completo da pista
+Surface trackModel(vec3 p)
+{
+    Surface track;
+
+    float roadD = trackDistance(p);
+
+    // Espessura vertical do asfalto
+    float verticalD = max(p.y, -0.12 - p.y);
+
+    track.d = max(roadD, verticalD);
+
+    track.color = vec3(0.12, 0.12, 0.12);
+    track.Ka = 0.2;
+    track.Kd = 0.4;
+    track.Ks = 0.4;
+
+    return track;
+}
