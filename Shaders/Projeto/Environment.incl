@@ -96,42 +96,7 @@ float terrainNoise(vec2 p)
 
 float terrainHeight(vec3 p)
 {
-    float side = terrainSide(p);
-
-    // Distancia alem da margem de seguranca
-    float outsideDistance = max(abs(side) - 5.0, 0.0);
-
-    // Encosta esquerda
-    float height;
-
-    if(side > 0.0)
-    {
-        height = 0.65 * outsideDistance;
-    }
-    // Vale direito
-    else
-    {
-        height = -0.35 * outsideDistance;
-    }
-
-    // Intensidade gradual do ruido
-    float noiseFade = smoothstep(
-        0.0,
-        6.0,
-        outsideDistance
-    );
-
-    // Duas escalas de irregularidade
-    float largeNoise = terrainNoise(p.xz * 0.18);
-    float smallNoise = terrainNoise(p.xz * 0.36);
-
-    float irregularity =
-        largeNoise * 0.12 +
-        smallNoise * 0.04;
-
-    height += irregularity * noiseFade;
-
-    return height;
+    return -0.2;
 }
 
 // Distancia ate o terreno

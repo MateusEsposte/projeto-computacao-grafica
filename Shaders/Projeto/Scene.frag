@@ -25,9 +25,7 @@ Surface csgObject(vec3 p){
 
 
 Surface getDist(vec3 p){
-    Surface Car = carModel(
-        p - vec3(0.0, 0.0, -1.3)
-    );
+    Surface Car = carModel(p - vec3(-2.0, 0.0, -20.0));
 
     Surface Track = trackModel(p);
     Surface Markings = roadMarkingsModel(p);
@@ -78,47 +76,33 @@ vec3 estimateNormal(vec3 p){
 
 
 
-vec3 getLight(vec3 p, vec3 CamPos, Surface s)
-{
+vec3 getLight(vec3 p, vec3 CamPos, Surface s){
     vec3 n = estimateNormal(p);
-    vec3 viewDir = normalize(CamPos - p);
 
     // Iluminação ambiente
-    vec3 col = s.color * s.Ka;
+    vec3 ambient = s.color * 0.35;
 
-    // Iluminação dos postes
-    vec3 lampColor = vec3(1.0, 0.72, 0.38);
+    // Luz direcional global
+    vec3 lightDir = normalize(vec3(-0.4, 1.0, -0.3));
 
-    // Iluminação dos postes
-    col += pointLight(p, viewDir, n, s,
-        vec3(-12.0, 4.85, -4.0), lampColor, 15.0);
+    float diffuse = max(dot(n, lightDir), 0.0);
 
-    col += pointLight(p, viewDir, n, s,
-        vec3(0.0, 4.85, 4.0), lampColor, 15.0);
+    vec3 globalLight = s.color * diffuse * 0.45;
 
-    col += pointLight(p, viewDir, n, s,
-        vec3(12.0, 4.85, -4.0), lampColor, 15.0);
-
-    // Iluminação dos faróis
-    vec3 headlightColor = vec3(1.0, 0.88, 0.68);
-    vec3 headlightDir = vec3(1.0, 0.0, 0.0);
-
-    col += spotLight(p, viewDir, n, s,
-        vec3(1.43, 0.43, -1.73),
-        headlightDir, headlightColor, 15.0);
-
-    col += spotLight(p, viewDir, n, s,
-        vec3(1.43, 0.43, -0.87),
-        headlightDir, headlightColor, 15.0);
-
-    return col;
+    return ambient + globalLight;
 }
 
 
-mat3 SetCamera(vec3 Look_at, vec3 CamPos){
+mat3 SetCamera(vec3 Look_at, vec3 CamPos)
+{
     vec3 cd = normalize(Look_at - CamPos);
-    vec3 cv = cross(vec3(0.0, 1.0, 0.0), cd);
+
+    // Referência do eixo vertical da câmera
+    vec3 worldUp = vec3(0.0, 0.0, 1.0);
+
+    vec3 cv = normalize(cross(worldUp, cd));
     vec3 cu = cross(cd, cv);
+
     return mat3(cv, cu, cd);
 }
 
@@ -137,10 +121,10 @@ void main(){
     mat4 Mrx = rotX(bm);
     mat4 M = Mrx * Mry;
    
-    vec3 Cam = vec3 (-8.0, 4.0, -6.0);
-    Cam = opTransf(Cam, M);
+    vec3 Cam = vec3(1.5, 70.0, 4.5);
 
-    vec3 Target = vec3 (-4.0, 1, -2.0);
+    vec3 Target = vec3(1.5, 0.0, 4.5);
+    
     mat3 Mc = SetCamera(Target, Cam);
     rd = Mc * rd;
 

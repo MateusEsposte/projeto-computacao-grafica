@@ -14,40 +14,79 @@ float trackSegmentDist(vec3 p, vec2 a, vec2 b)
 }
 
 
-// Define o percurso da pista
+// Define o circuito assimetrico e fechado
 float trackDistance(vec3 p)
 {
     float d = trackSegmentDist(
-        p, vec2(-12.0, 0.0), vec2(8.0, 0.0)
+        p, vec2(-14.0, -20.0), vec2(0.0, -20.0)
     );
 
     d = min(d, trackSegmentDist(
-        p, vec2(8.0, 0.0), vec2(18.0, 0.5)
+        p, vec2(0.0, -20.0), vec2(10.0, -20.0)
     ));
 
     d = min(d, trackSegmentDist(
-        p, vec2(18.0, 0.5), vec2(28.0, 2.0)
+        p, vec2(10.0, -20.0), vec2(18.0, -12.0)
     ));
 
     d = min(d, trackSegmentDist(
-        p, vec2(28.0, 2.0), vec2(38.0, 2.0)
+        p, vec2(18.0, -12.0), vec2(22.0, -14.0)
     ));
 
     d = min(d, trackSegmentDist(
-        p, vec2(38.0, 2.0), vec2(48.0, 0.5)
+        p, vec2(22.0, -14.0), vec2(28.0, -10.0)
     ));
 
     d = min(d, trackSegmentDist(
-        p, vec2(48.0, 0.5), vec2(58.0, -1.5)
+        p, vec2(28.0, -10.0), vec2(30.0, 0.0)
     ));
 
     d = min(d, trackSegmentDist(
-        p, vec2(58.0, -1.5), vec2(72.0, -1.5)
+        p, vec2(30.0, 0.0), vec2(24.0, 6.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(24.0, 6.0), vec2(16.0, 6.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(16.0, 6.0), vec2(0.0, 20.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(0.0, 20.0), vec2(-16.0, 16.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(-16.0, 16.0), vec2(-22.0, 12.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(-22.0, 12.0), vec2(-26.0, 6.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(-26.0, 6.0), vec2(-28.0, 0.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(-28.0, 0.0), vec2(-12.0, -6.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(-12.0, -6.0), vec2(-16.0, -12.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(-16.0, -12.0), vec2(-16.0, -16.0)
+    ));
+
+    d = min(d, trackSegmentDist(
+        p, vec2(-16.0, -16.0), vec2(-14.0, -20.0)
     ));
 
     return d;
 }
-
 
 // Modelo completo da pista
 Surface trackModel(vec3 p)
