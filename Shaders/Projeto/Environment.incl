@@ -187,7 +187,7 @@ Surface environmentModel(vec3 p)
 
     terrain.d = terrainDistance(p);
 
-    terrain.color = vec3(0.16, 0.15, 0.13);
+    terrain.color = vec3(0.16, 0.4, 0.13);
 
     terrain.Ka = 0.25;
     terrain.Kd = 0.55;
