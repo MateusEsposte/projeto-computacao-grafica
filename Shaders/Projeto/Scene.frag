@@ -76,31 +76,34 @@ vec3 estimateNormal(vec3 p){
 
 
 
-vec3 getLight(vec3 p, vec3 CamPos, Surface s){
+vec3 getLight(vec3 p, vec3 CamPos, Surface s)
+{
     vec3 n = estimateNormal(p);
+    vec3 viewDir = normalize(CamPos - p);
 
-    // Iluminação ambiente
-    vec3 ambient = s.color * 0.35;
+    // Iluminação ambiente reduzida
+    vec3 ambient = s.color * 0.20;
 
-    // Luz direcional global
+    // Luz global reduzida
     vec3 lightDir = normalize(vec3(-0.4, 1.0, -0.3));
-
     float diffuse = max(dot(n, lightDir), 0.0);
 
-    vec3 globalLight = s.color * diffuse * 0.45;
+    vec3 globalLight = s.color * diffuse * 0.30;
 
-    return ambient + globalLight;
+    // Iluminação dos seis postes
+    vec3 lamps = streetLights(p, viewDir, n, s);
+
+    // Faróis do carro
+    vec3 headlights = carHeadlights(p, viewDir, n, s);
+
+    return ambient + globalLight + lamps + headlights;
 }
 
 
 mat3 SetCamera(vec3 Look_at, vec3 CamPos)
 {
     vec3 cd = normalize(Look_at - CamPos);
-
-    // Referência do eixo vertical da câmera
-    vec3 worldUp = vec3(0.0, 0.0, 1.0);
-
-    vec3 cv = normalize(cross(worldUp, cd));
+    vec3 cv = normalize(cross(vec3(0.0, 1.0, 0.0), cd));
     vec3 cu = cross(cd, cv);
 
     return mat3(cv, cu, cd);
@@ -121,9 +124,10 @@ void main(){
     mat4 Mrx = rotX(bm);
     mat4 M = Mrx * Mry;
    
-    vec3 Cam = vec3(1.5, 70.0, 4.5);
+    vec3 Cam = vec3(-8.0, 4.5, -25.0);
+    Cam = opTransf(Cam, M);
 
-    vec3 Target = vec3(1.5, 0.0, 4.5);
+    vec3 Target = vec3(-2.0, 1.0, -20.0);
     
     mat3 Mc = SetCamera(Target, Cam);
     rd = Mc * rd;
@@ -132,9 +136,13 @@ void main(){
 
     Surface s = rayMarching(Cam, rd);
     
-    if(s.d<MAX_DIST){
+    if(s.d < MAX_DIST)
+    {
         vec3 po = Cam + s.d * rd;
-         col = getLight(po, Cam, s);
+        col = getLight(po, Cam, s);
+
+        // Iluminação volumétrica dos postes
+        col += volumetricStreetLights(Cam, rd, s.d);
     }
 
     
